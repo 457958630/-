@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button-counter></button-counter>
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/html" id="news">
+    <div>
+        <input type="text" v-model="message" placeholder="新增新闻" @keyup.enter="add">
+        <ul>
+            <li v-for="(item, index) in news">{{ item | capitalize }}</li>
+        </ul>
+    </div>
+</script>
+<script>
+    // 定义一个名为 button-counter 的新组件
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                news: [],
+                message: "",
+            }
+        },
+        template: '#news',
+        methods: {
+            add() {
+                this.news.push(this.message);
+                this.message = "";
+            }
+        },
+        filters: {
+            capitalize: function (value) {
+                if (value.length>10) {
+                    // console.log(value);
+                    return value.slice(0,10)+"...";
+                }
+            }
+        }
+    })
+
+    let app = new Vue({
+        el: "#app"
+    })
+</script>
